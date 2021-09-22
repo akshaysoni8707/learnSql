@@ -1,7 +1,3 @@
--- SQL -> structured query language
--- Query -> statement based task  
--- phpMyAdmin -> php app ->webui
-
 -- inner join
 -- customer and order table
 
@@ -69,3 +65,28 @@ SELECT employees.first_name,COUNT(orders.employee_id) AS totalOrders FROM orders
 -- with where
 
 SELECT employees.first_name,COUNT(orders.employee_id) AS totalOrders FROM orders RIGHT JOIN employees ON employees.id = orders.employee_id WHERE employees.first_name = 'Nancy' OR employees.first_name = 'Jan' GROUP BY employees.first_name HAVING totalOrders > 2 ORDER BY 1 DESC
+
+-- ANY sub query
+
+SELECT products.product_name
+FROM products
+WHERE products.id = ANY
+(SELECT order_details.product_id
+FROM order_details
+WHERE order_details.quantity > 10)
+
+
+SELECT DISTINCT products.product_name
+FROM products
+INNER JOIN order_details
+ON products.id = order_details.product_id
+WHERE order_details.quantity>10
+
+-- ALL sub query
+
+SELECT products.product_name
+FROM products
+WHERE products.id = ALL
+(SELECT order_details.product_id
+FROM order_details
+WHERE order_details.quantity > 10)
