@@ -90,3 +90,27 @@ WHERE products.id = ALL
 (SELECT order_details.product_id
 FROM order_details
 WHERE order_details.quantity > 10)
+
+-- case when
+-- aliasing
+
+SELECT order_details.order_id, order_details.quantity,
+CASE 
+WHEN order_details.quantity > 30 THEN 'The quantity is greater than 30'
+WHEN order_details.quantity = 30 THEN 'The quantity is 30'
+ELSE 'The quantity is under 30'
+END 
+AS QuantityText
+FROM order_details
+
+UPDATE `suppliers` SET `country_region` = 'India' WHERE `suppliers`.`id` = 3;
+
+UPDATE `suppliers` SET `city` = 'NewYork', `country_region` = 'NY' WHERE `suppliers`.`id` = 4;
+
+SELECT suppliers.first_name, suppliers.city, suppliers.country_region
+FROM suppliers
+ORDER BY
+(CASE
+    WHEN suppliers.city IS NULL THEN suppliers.country_region
+    ELSE suppliers.city
+END)
