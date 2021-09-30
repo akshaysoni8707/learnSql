@@ -1,3 +1,99 @@
+-- select columns
+SELECT customers.id,customers.first_name,customers.company
+FROM customers
+
+-- where clause
+
+SELECT customers.id,customers.company,customers.first_name,customers.city
+FROM customers
+WHERE customers.city = 'Seattle'
+
+
+SELECT *
+FROM customers
+WHERE customers.first_name = 'John'
+
+-- like
+
+SELECT * 
+FROM customers
+WHERE customers.first_name LIKE 'A%'
+
+
+SELECT * 
+FROM customers
+WHERE customers.first_name LIKE 'A%e'
+
+-- comparison operators in where
+
+SELECT orders.id,orders.shipped_date,orders.shipping_fee
+FROM `orders` 
+WHERE orders.shipping_fee >= 40
+
+-- logical operators in where
+
+SELECT products.id,products.product_name,products.list_price,products.reorder_level
+FROM products
+WHERE products.list_price>20 AND products.reorder_level>10
+
+
+SELECT products.id,products.product_name,products.list_price,products.reorder_level
+FROM products
+WHERE products.list_price>20 AND products.list_price<40
+
+
+SELECT products.id,products.product_name,products.list_price
+FROM products
+WHERE products.list_price BETWEEN 20 AND 40
+
+
+SELECT `company`,`first_name`,`city`,`country_region`
+FROM customers
+WHERE city = 'Seattle' OR city = 'Boston' OR city = 'New York'
+
+
+SELECT `company`,`first_name`,`city`,`country_region`
+FROM customers
+WHERE city IN ('Seattle','Boston','New York')
+
+
+SELECT `company`,`first_name`,`city`,`country_region`
+FROM customers
+WHERE city NOT IN ('Seattle','Boston','New York')
+
+
+SELECT products.id,products.product_name,products.list_price
+FROM products
+WHERE products.list_price NOT BETWEEN 20 AND 40
+
+-- order by
+
+SELECT `id`,`first_name`,`city`
+FROM `customers`
+ORDER BY city DESC
+
+SELECT `id`,`first_name`,`city`,`state_province`
+FROM `customers`  
+ORDER BY city DESC,first_name  DESC
+
+-- aggregation
+
+SELECT MIN(`standard_cost`) FROM `products`
+
+SELECT MAX(`standard_cost`) FROM `products`
+
+SELECT COUNT(id) 
+FROM `products`
+
+SELECT COUNT(id) AS totalProducts
+FROM `products`
+
+SELECT SUM(`shipping_fee`) AS totalShippingFees
+FROM orders
+
+SELECT AVG(`shipping_fee`) AS AvgShippingFees
+FROM orders
+
 -- inner join
 -- customer and order table
 
