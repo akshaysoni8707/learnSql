@@ -114,3 +114,25 @@ ORDER BY
     WHEN suppliers.city IS NULL THEN suppliers.country_region
     ELSE suppliers.city
 END)
+
+-- Exists 
+SELECT DISTINCT(employee_id) FROM `orders`
+SELECT * FROM `employees`
+
+SELECT employees.first_name
+FROM employees
+WHERE EXISTS
+(
+SELECT orders.employee_id
+FROM orders
+WHERE orders.employee_id = employees.id
+)
+
+SELECT employees.first_name
+FROM employees
+WHERE NOT EXISTS
+(
+SELECT orders.employee_id
+FROM orders
+WHERE orders.employee_id = employees.id
+)
